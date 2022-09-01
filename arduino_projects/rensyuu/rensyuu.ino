@@ -1,4 +1,5 @@
 #define REDLED 7
+#define BLUELED 8
 
 void setup() {
   // put your setup code here, to run once:
