@@ -1,5 +1,7 @@
 #define REDLED 7
 #define BLUELED 8
+#define START_BTN 5
+
 
 void setup() {
   // put your setup code here, to run once:
