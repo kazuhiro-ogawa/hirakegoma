@@ -1,26 +1,26 @@
-#include <Arduino.h>
 #include "Display.h"
 #include <Wire.h>
-
+#include "Lid.h"
+#include "UltraSonicSensor.h"
+#include "RealTimeClock.h"
+/*Lidクラスインスタンス生成*/
+Lid lid = Lid(4,5); //(4,5)仮
+/*超音波センサーインスタンス生成*/
+UltraSonicSensor ultrasonicsensor = UltraSonicSensor(13,12);//(13,12)仮
+/*RealTimeClockインスタンス生成*/
+RealTimeClock realtimeclock = new RealTimeClock();
+/*Lcdインスタンス生成*/
 Display display;
 
 void setup() {
   // put your setup code here, to run once:
+  // Lcd初期化処理
   display.init();
+  //サーボ初期設定
+  lid.init();
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  display.printErrorMsg();               // 角度調整時エラーメッセージ表示
-  delay(5000);
-  display.printWarningMsg();             // ごみ取り換えメッセージ表示
-    delay(5000);
-  display.printCharacter();              // 開口時の顔文字表示
-    delay(5000);
-  display.printAngle(60);         // 角度調整時の設定角度表示
-    delay(5000);
-  display.printGarbageCategory();        // ゴミ出し日を表示
-    delay(5000);
-  display.offLcd();                      // LCDを非表示
-    delay(5000);
+ 
 }
