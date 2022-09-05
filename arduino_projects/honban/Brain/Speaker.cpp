@@ -1,4 +1,5 @@
 #include "Speaker.h"
+#include "Brain.h"
 #include <Arduino.h>
 
 //コンストラクタ

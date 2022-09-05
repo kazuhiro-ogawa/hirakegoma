@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Display.h"
 #include <Wire.h>
+#include"Brain.h"
 
 /* LCDの初期化処理 */
 void Display::init_LCD() {

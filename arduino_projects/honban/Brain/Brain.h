@@ -1,10 +1,13 @@
 
 #pragma once
 
-/*ピン未設定の為設定すること(Lidクラス)
-#define leftServo_PIN 　　
-#define rightServo_PIN */
+#define speaker_PIN 33
 
-/*ピン未設定の為設定すること(UltraSonicSensorクラス)
-#define ECHO_PIN 
-#define TRIG_PIN  */
+#define 
+
+#define leftServo_PIN 25
+#define rightServo_PIN 26
+
+
+#define ECHO_PIN 17
+#define TRIG_PIN 16
