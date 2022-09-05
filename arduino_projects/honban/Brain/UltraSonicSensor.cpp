@@ -35,8 +35,8 @@ float UltraSonicSensor::measureDistance(){
 bool UltraSonicSensor::checkDistance(){
   float distance;
   distance =measureDistance();
-  //０cmから15cmの場合trueを返す
-  if( 0 < distance && distance < 15){
+  //０cmから20cmの場合trueを返す
+  if( 0 < distance && distance < 20){
     return true;
   }
   return false;
