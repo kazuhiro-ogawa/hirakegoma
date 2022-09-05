@@ -1,9 +1,11 @@
-void setup() {
-  // put your setup code here, to run once:
+#include "Angle.h"
 
+Angle angle;
+
+void setup() {
+  
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  
 }
