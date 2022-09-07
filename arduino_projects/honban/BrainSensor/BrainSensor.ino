@@ -2,8 +2,7 @@
 #include "Display.h"
 #include <Wire.h>
 #include "RealTimeClock.h"
-/*人感センサーピン仮設定
-#define humanSensor_IN 0*/
+#include "BrainSensor.h"
 
 /*RealTimeClockインスタンス生成*/
 RealTimeClock realtimeclock;
@@ -17,11 +16,7 @@ void mode_change(){
 }
 
 void setup() {
-   //人感センサー設定
-  attachInterrupt(PIN,mode_change,RISING);//割り込み
-  // Lcd初期化処理
-  display.init();
-
+  
 }
 
 void loop() {

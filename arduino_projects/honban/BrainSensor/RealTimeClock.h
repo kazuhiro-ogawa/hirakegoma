@@ -9,4 +9,4 @@ class RealTimeClock
   unsigned long getRealTime();
   void setRealTime(unsigned long currentTime);
   
-}
+};

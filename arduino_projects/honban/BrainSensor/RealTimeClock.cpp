@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include"RealTimeClock.h"
 
-long RealTimeClock::getRealTime()
+unsigned long RealTimeClock::getRealTime()
 {
   return m_currentTime;
 }
