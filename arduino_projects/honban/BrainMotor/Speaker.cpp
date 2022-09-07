@@ -19,33 +19,33 @@ void Speaker::playMelody(int modeState){
       switch(preferenceMelody){
         case 0:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            tone(speaker, melody_1[i]);
+            ledcWriteTone(speaker, melody_1[i]);
             delay(BEAT);
           }
-          noTone(speaker);
+           ledcWriteTone(speaker, 0);
           break;
         case 1:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            tone(speaker, melody_2[i]);
+            ledcWriteTone(speaker, melody_1[i]);
             delay(BEAT);
           }
-          noTone(speaker);
+           ledcWriteTone(speaker, 0);
           break;
         case 2:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            tone(speaker, melody_1[i]);
+            ledcWriteTone(speaker, melody_1[i]);
             delay(BEAT);
           }
-          noTone(speaker);
+           ledcWriteTone(speaker, 0);
           break;
       }
       break;
     case STATUS_FULLWAIT:
       for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-        tone(speaker, melody_1[i]);
+        ledcWriteTone(speaker, melody_1[i]);
         delay(BEAT);
       }
-      noTone(speaker);
+       ledcWriteTone(speaker, 0);
       break;
   }
 }

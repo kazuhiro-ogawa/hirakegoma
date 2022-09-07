@@ -17,12 +17,12 @@ float UltraSonicSensor::measureDistance(){
   float distance = 0;
 
    /*超音波の発生*/
-  digitalWrite(TRIG,HIGH);
+  digitalWrite(trig,HIGH);
   delayMicroseconds(10);
-  digitalWrite(TRIG,LOW);
+  digitalWrite(trig,LOW);
 
   /*返ってくるまでの時間測定*/
-  t = pulseIn(ECHO,HIGH); //ECHOピンのパルスがHIGHになった時間を変数tに格納
+  t = pulseIn(echo,HIGH); //ECHOピンのパルスがHIGHになった時間を変数tに格納
   if(t >= 0){
     distance = (float)t * 340*(0.000001)*0.5*100;//m→cmなので100倍する
   }
