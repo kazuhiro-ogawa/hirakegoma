@@ -7,3 +7,15 @@
 /*超音波センサーのピン設定*/
 #define ECHO_PIN 17
 #define TRIG_PIN 16
+/*mode*/
+typedef enum{
+  OPEN,
+  ANGLE_CHANGE,
+  WAIT,
+}MODE;
+
+typedef enum{
+  ENTRY,
+  DO,
+  EXIT,
+}ACTION_STATE;
