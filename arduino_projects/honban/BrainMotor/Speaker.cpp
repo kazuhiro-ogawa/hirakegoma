@@ -6,7 +6,8 @@
 //スピーカのピン番号を設定
 Speaker::Speaker(int speakerPin){
   speaker = speakerPin;
-  pinMode(speaker, OUTPUT);
+  ledcSetup(CHAN,FREQ,BIT_NUM);
+  ledcAttachPin(speaker,CHAN);
 }
 
 //音声出力メソッド
@@ -19,33 +20,33 @@ void Speaker::playMelody(int modeState){
       switch(preferenceMelody){
         case 0:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            ledcWriteTone(speaker, melody_1[i]);
+            ledcWriteTone(CHAN, melody_1[i]);
             delay(BEAT);
           }
-           ledcWriteTone(speaker, 0);
+           ledcWriteTone(CHAN, 0);
           break;
         case 1:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            ledcWriteTone(speaker, melody_1[i]);
+            ledcWriteTone(CHAN, melody_1[i]);
             delay(BEAT);
           }
-           ledcWriteTone(speaker, 0);
+           ledcWriteTone(CHAN, 0);
           break;
         case 2:
           for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-            ledcWriteTone(speaker, melody_1[i]);
+            ledcWriteTone(CHAN, melody_1[i]);
             delay(BEAT);
           }
-           ledcWriteTone(speaker, 0);
+           ledcWriteTone(CHAN, 0);
           break;
       }
       break;
     case STATUS_FULLWAIT:
       for(int i = 0; i < sizeof(melody_1) / sizeof(int); i++){
-        ledcWriteTone(speaker, melody_1[i]);
+        ledcWriteTone(CHAN, melody_1[i]);
         delay(BEAT);
       }
-       ledcWriteTone(speaker, 0);
+       ledcWriteTone(CHAN, 0);
       break;
   }
 }
