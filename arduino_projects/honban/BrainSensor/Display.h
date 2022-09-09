@@ -6,12 +6,14 @@
 class Display
 {
   private :
+    /* 表示する文字列 */
     String errorMsg = "\x21\x21\xCA\xDD\xB2\xB6\xDE\xB2\xC3\xDE\xBD\x21\x21";
     String warningMsg = "\xBA\xDE\xD0\xB6\xDE\xB2\xAF\xCA\xDF\xB2\xC0\xDE\xD6";
     String warningChar = "(xox)";
     String character = "(^o^)";
     String garbageCategory = "\xB7\xAE\xB3\xCA\xBA\xDE\xD0\xC9\xCB\xC0\xDE\xD6";
-  
+
+    /* private関数 */
     void init_LCD();                    // LCDの初期化処理
     void writeData(byte t_data);        // 文字データ送信処理
     void writeCommand(byte t_command);  // コマンド送信処理
@@ -20,6 +22,7 @@ class Display
     void printData(int data);           // 数値表示処理
     
   public :
+    /* public関数 */
     void init();                        // 初期化処理
     void printErrorMsg();               // 角度調整時エラーメッセージ表示
     void printWarningMsg();             // ごみ取り換えメッセージ表示
