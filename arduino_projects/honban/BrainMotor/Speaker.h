@@ -1,5 +1,9 @@
 #pragma once
 
+#define CHAN 1
+#define FREQ 12000
+#define BIT_NUM 8
+
 typedef enum{
   STATUS_WAIT = 0,
   STATUS_FULLWAIT = 1

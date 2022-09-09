@@ -1,7 +1,10 @@
 #include <BluetoothSerial.h>
-#include <BTAddress.h>
-#include <BTAdvertisedDevice.h>
-#include <BTScan.h>
+
+// ↓自動追記
+//#include <BTAddress.h>
+//#include <BTAdvertisedDevice.h>
+//#include <BTScan.h>
+
 #include"Bluetooth.h"
 
 BluetoothSerial bluetoothserial;
