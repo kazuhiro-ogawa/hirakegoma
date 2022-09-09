@@ -1,4 +1,4 @@
-#include<ESP32Servo.h>
+
 #include <Arduino.h>
 #include"Lid.h"
 #include"BrainMotor.h"
@@ -7,10 +7,6 @@
 //#define rightServo_PIN 5
 
 
-int preferenceAngle = 60;  //初期設定角度
-
-Servo leftServo;  //ServoクラスからインスタンスleftServoを生成
-Servo rightServo; //ServoクラスからインスタンスrightServoを生成
 
 Lid::Lid(int leftServo_pin,int rightServo_pin){
   m_leftServo_pin = leftServo_pin;
