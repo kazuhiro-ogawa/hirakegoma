@@ -14,7 +14,7 @@ Speaker speaker = Speaker(33);
 /*Bluetoothクラスのインスタンス生成*/
 Bluetooth bluetooth;
 /*モードの初期化*/
-MODE g_mode = OPEN;
+MODE g_mode = WAIT;
 ACTION_STATE action = ENTRY;
 
 void change_mode(MODE mode) {
@@ -97,8 +97,12 @@ void loop() {
       switch (action) {
 
         case ENTRY:
-          //ゴミ出しのサイン音を出力
-          speaker.playMelody(1);
+
+          //超音波センサーを起動させて距離測定と0cmから20cmの場合
+          if (ultrasonicsensor.checkDistance() == true) {
+            //ゴミ出しのサイン音を出力
+            speaker.playMelody(1);
+          }
           action = DO;
           break;
 
