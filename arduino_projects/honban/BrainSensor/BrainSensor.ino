@@ -61,6 +61,7 @@ void loop() {
           if(g_ftime - g_stime >= 5000){
             action = EXIT;
           }
+          delay(100);
           
           break;
 
@@ -134,6 +135,8 @@ void loop() {
         case ENTRY:
           // LCDをOFF
           display.offLcd();
+
+          action = DO;
           break;
 
         case DO:
