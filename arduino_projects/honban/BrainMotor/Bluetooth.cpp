@@ -17,7 +17,7 @@ void Bluetooth::initWrite() {
 
   connected =  bluetoothserial.connect(address);
 
-  if(isClosed()){
+  if(bluetoothserial.isClosed()){
     while(!bluetoothserial.connected(10000)){
       connected = bluetoothserial.connect(address);
     }
