@@ -29,18 +29,22 @@ void setup() {
   bluetooth.initWrite();
   //Bluetooth受信の初期設定
   bluetooth.initRead();
+  Serial.begin(9600);
 }
 
 
 void loop() {
   //調整角度
   int preferenceAngle;
+  int num;
 
   switch (g_mode) {
 
     case OPEN:
       switch (action) {
         case ENTRY:
+          Serial.print("OPEN_ENTRY:");
+          Serial.println(bluetooth.BluetoothRead());
           //Lidの開口
           lid.openLid();
           //音声出力
@@ -48,6 +52,8 @@ void loop() {
           action = DO;
           break;
         case DO:
+          Serial.print("OPEN_DO:");
+          Serial.println(bluetooth.BluetoothRead());
           if (bluetooth.BluetoothRead() == 1) {
             //何もしない(開口済みのため)
           } else if (bluetooth.BluetoothRead() == 0) {
@@ -97,7 +103,8 @@ void loop() {
       switch (action) {
 
         case ENTRY:
-
+          Serial.print("WAIT_ENTRY:");
+          Serial.println(bluetooth.BluetoothRead());
           //超音波センサーを起動させて距離測定と0cmから20cmの場合
           if (ultrasonicsensor.checkDistance() == true) {
             //ゴミ出しのサイン音を出力
@@ -107,19 +114,24 @@ void loop() {
           break;
 
         case DO:
+          num  = bluetooth.BluetoothRead();
+          Serial.print("WAIT_DO:");
+          Serial.println(bluetooth.BluetoothRead());
+          
           //Bluetoothの受信がOPENの時
-          if (bluetooth.BluetoothRead() == 1) {
+          if (num == 1) {
             g_mode = OPEN;
             action = ENTRY;
           }
-          else if (bluetooth.BluetoothRead() != -1 && bluetooth.BluetoothRead() != 0) {
+          else if (num != -1 && num != 0) {
+            Serial.println("else if");
             //OPENとCLOSE以外の値がわたって来たときは角度数値と見なしprefernceAngleに角度を代入する
             lid.setPreferenceAngle(bluetooth.BluetoothRead());
             g_mode = ANGLE_CHANGE;
             action = ENTRY;
           } else {
             //それ以外は何もしない
-
+            Serial.println("else");
           }
           //Bluetoothの受信がCLOSEの時
 
