@@ -113,7 +113,7 @@ void loop() {
           if(g_ftime - g_stime >= 5000){
             action = EXIT;
           }
-          delay(500);
+          delay(250);
 
           break;
 
