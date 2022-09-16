@@ -14,7 +14,15 @@ BluetoothSerial bluetoothserial;
 //Bluetooth送信の初期設定
 void Bluetooth::initWrite() {
   bluetoothserial.begin("ESP32_Moter", true);
+
   connected =  bluetoothserial.connect(address);
+
+  if(bluetoothserial.isClosed()){
+    while(!bluetoothserial.connected(10000)){
+      connected = bluetoothserial.connect(address);
+    }
+  }
+  
 }
 
 //Bluetooth受信の初期設定
