@@ -18,11 +18,14 @@ MODE_STATE action = ENTRY;
 volatile unsigned long g_stime;
 volatile unsigned long g_ftime;
 
+/* ゴミ容量把握機能で使用するグローバル変数 */
+int g_USSStatus;
+
 void setup() {
   display.init();                   // LCD初期化処理
-  pinMode(humanSensor_PIN,INPUT);   // 人感センサーのピン設定
-  pinMode(btnIncAngle_PIN,INPUT);   // 角度上昇ボタンのピン設定
-  pinMode(btnDecAngle_PIN,INPUT);   // 角度下降ボタンのピン設定
+  pinMode(humanSensor_PIN, INPUT);  // 人感センサーのピン設定
+  pinMode(btnIncAngle_PIN, INPUT);  // 角度上昇ボタンのピン設定
+  pinMode(btnDecAngle_PIN, INPUT);  // 角度下降ボタンのピン設定
   bluetooth.initWrite();            // Bluetooth送信の初期設定
   bluetooth.initRead();             // Bluetooth受信の初期設定
 }
@@ -38,7 +41,7 @@ void loop() {
         case ENTRY:
 
           // Bluetooth送信処理
-          bluetooth.BluetoothWrite(bluetooth.OPEN);
+          bluetooth.BluetoothWrite(bluetooth.CLOSE);
 
           // LCDに顔文字出力
           display.printCharacter();
@@ -52,23 +55,23 @@ void loop() {
         case DO:
 
           // 人感センサーが再び反応したらエントリーへ戻る
-          if(digitalRead(humanSensor_PIN) == HIGH){
+          if (digitalRead(humanSensor_PIN) == HIGH) {
             action = ENTRY;
           }
 
           // 時間を計測して5秒たったらEXITへ
           g_ftime = millis();
-          if(g_ftime - g_stime >= 5000){
+          if (g_ftime - g_stime >= 5000) {
             action = EXIT;
           }
           delay(100);
-          
+
           break;
 
         case EXIT:
 
           // Bluetooth送信処理
-          bluetooth.BluetoothWrite(bluetooth.CLOSE);
+          bluetooth.BluetoothWrite('c');
 
           s_mode = WAIT;
           action = ENTRY;
@@ -97,20 +100,20 @@ void loop() {
         case DO:
 
           // 角度上昇ボタンをもう一度押すと設定角度を上昇させてエントリーへ戻る
-          if(digitalRead(btnIncAngle_PIN) == LOW){
+          if (digitalRead(btnIncAngle_PIN) == LOW) {
             angle.incrementAngle();
             action = ENTRY;
           }
 
           // 角度下降ボタンをもう一度押すと設定角度を下降させてエントリーへ戻る
-          if(digitalRead(btnDecAngle_PIN) == LOW){
+          if (digitalRead(btnDecAngle_PIN) == LOW) {
             angle.decrementAngle();
             action = ENTRY;
           }
 
           // 時間を計測して5秒たったらEXITへ
           g_ftime = millis();
-          if(g_ftime - g_stime >= 5000){
+          if (g_ftime - g_stime >= 5000) {
             action = EXIT;
           }
           delay(250);
@@ -129,12 +132,21 @@ void loop() {
       break;
 
     case WAIT:  // 待機状態
-    
+
       switch (action) {
 
         case ENTRY:
-          // LCDをOFF
-          display.offLcd();
+
+          if (g_USSStatus == 1) {
+
+            // ゴミ容量満タンのメッセージ
+            display.printWarningMsg();
+          }
+
+          else {
+            // LCDをOFF
+            display.offLcd();
+          }
 
           action = DO;
           break;
@@ -142,36 +154,36 @@ void loop() {
         case DO:
 
           // BluetoothでFULLのサインを受信したら画面切り替え
-          if(bluetooth.BluetoothRead() == -1){
+
+          g_USSStatus = bluetooth.BluetoothRead();
+
+          if (g_USSStatus == -1) {
             // 何もしない
           }
-          else if(bluetooth.BluetoothRead() == 1){
-            display.printWarningMsg();
-          }
-          else if(bluetooth.BluetoothRead() == 0){
-            display.offLcd();
+          else {
+            action = ENTRY;
           }
 
           // 人感センサーが反応したらゴミ箱開口モードへ移行
-          if(digitalRead(humanSensor_PIN) == HIGH){
+          if (digitalRead(humanSensor_PIN) == HIGH) {
             s_mode = OPEN;
             action = ENTRY;
           }
 
           // 角度上昇ボタンを押すと角度設定変更状態へモード移行
-          if(digitalRead(btnIncAngle_PIN) == LOW){
+          if (digitalRead(btnIncAngle_PIN) == LOW) {
             s_mode = ANGLE_CHANGE;
             action = ENTRY;
           }
 
           // 角度下降ボタンを押すと角度設定変更状態へモード移行
-          if(digitalRead(btnDecAngle_PIN) == LOW){
+          if (digitalRead(btnDecAngle_PIN) == LOW) {
             s_mode = ANGLE_CHANGE;
             action = ENTRY;
           }
 
           delay(10);
-          
+
           break;
 
         case EXIT:
